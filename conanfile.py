@@ -1,27 +1,4 @@
-import os
-import shutil
-
 from conans import ConanFile, CMake, tools
-
-
-# From https://stackoverflow.com/questions/1868714/how-do-i-copy-an-entire-directory-of-files-into-an-existing-directory-using-pyth/31039095
-def copytree(src, dst, symlinks=False, ignore=None):
-    if not os.path.exists(dst):
-        os.makedirs(dst)
-        shutil.copystat(src, dst)
-
-    root_files = os.listdir(src)
-    if ignore:
-        excluded = ignore(src, root_files)
-        root_files = [x for x in root_files if x not in excluded]
-
-    for item in root_files:
-        s = os.path.join(src, item)
-        d = os.path.join(dst, item)
-        if os.path.isdir(s):
-            copytree(s, d, symlinks, ignore)
-        else:
-            shutil.copy2(s, d)
 
 
 class Yat4TangoConan(ConanFile):
@@ -57,4 +34,3 @@ class Yat4TangoConan(ConanFile):
 
     def package_info(self):
         self.cpp_info.libs = ["yat4tango"]
-
